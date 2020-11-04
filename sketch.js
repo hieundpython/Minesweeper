@@ -11,7 +11,7 @@ var grid;
 var cols;
 var rows;
 var w = 40;
-var totalBees = 20;
+var totalBees = 10;
 
 function setup() {
   createCanvas(400, 400);
@@ -39,11 +39,23 @@ function setup() {
   }
 }
 
+function gameOver() {
+  for (var i = 0; i < cols; i++) {
+    for (var j = 0; j < rows; j++) {
+      grid[i][j].revealed = true;
+    }
+  }
+}
+
 function mousePressed() {
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       if (grid[i][j].contains(mouseX, mouseY)) {
         grid[i][j].reveal();
+
+        if (grid[i][j].bee) {
+          gameOver();
+        }
       }
     }
   }
